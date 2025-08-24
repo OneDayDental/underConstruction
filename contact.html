@@ -49,9 +49,10 @@
 
                 <button type="submit">Send Message</button>
             </form>
+            
         </div>
 
-
+        
 
         <div class="navbar">
             <a href="index.html" class="logo-link">
@@ -201,101 +202,118 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- 2) Initialize EmailJS with your public key -->
     <script type="text/javascript">
-        emailjs.init('nEFTFwROMhCpsjJrT'); //need to update this with any account changes - public key
+        emailjs.init('2gSaVNHT3HMzD7cD8'); //need to update this with any account changes - public key
     </script>
 
     <script>
-       (function () {
-  const form = document.getElementById('contact-form');  // <-- match your form id
-  if (!form) return;
+        (function () {
+            const form = document.getElementById('contact-form');  // <-- match your form id
+            if (!form) return;
 
-  const btn = form.querySelector('button[type="submit"]');
-  const $ = (sel) => form.querySelector(sel);
+            const btn = form.querySelector('button[type="submit"]');
+            const $ = (sel) => form.querySelector(sel);
 
-  const nameEl  = $('[name="from_name"], #name');
-  const emailEl = $('[name="from_email"], #email');
-  // accept either "phone" or "from_phone" as the field name
-  const phoneEl = $('[name="phone"], [name="from_phone"], #phone');
+            const nameEl = $('[name="from_name"], #name');
+            const emailEl = $('[name="from_email"], #email');
+            // accept either "phone" or "from_phone" as the field name
+            const phoneEl = $('[name="phone"], [name="from_phone"], #phone');
 
-  function showError(input, msg) {
-    if (!input) return;
-    input.classList.add('has-error');
-    let err = input.nextElementSibling;
-    if (!err || !err.classList.contains('field-error')) {
-      err = document.createElement('div');
-      err.className = 'field-error';
-      input.after(err);
-    }
-    err.textContent = msg;
-  }
-  function clearError(input) {
-    if (!input) return;
-    input.classList.remove('has-error');
-    const err = input.nextElementSibling;
-    if (err && err.classList.contains('field-error')) err.textContent = '';
-  }
+            function showError(input, msg) {
+                if (!input) return;
+                input.classList.add('has-error');
+                let err = input.nextElementSibling;
+                if (!err || !err.classList.contains('field-error')) {
+                    err = document.createElement('div');
+                    err.className = 'field-error';
+                    input.after(err);
+                }
+                err.textContent = msg;
+            }
+            function clearError(input) {
+                if (!input) return;
+                input.classList.remove('has-error');
+                const err = input.nextElementSibling;
+                if (err && err.classList.contains('field-error')) err.textContent = '';
+            }
 
-  function validate() {
-    let ok = true;
-    const name  = nameEl  ? nameEl.value.trim()  : '';
-    const email = emailEl ? emailEl.value.trim() : '';
-    const phone = phoneEl ? phoneEl.value.trim() : '';
+            function validate() {
+                let ok = true;
+                const name = nameEl ? nameEl.value.trim() : '';
+                const email = emailEl ? emailEl.value.trim() : '';
+                const phone = phoneEl ? phoneEl.value.trim() : '';
 
-    [nameEl, emailEl, phoneEl].forEach(clearError);
+                [nameEl, emailEl, phoneEl].forEach(clearError);
 
-    if (nameEl && nameEl.hasAttribute('required') && !name) {
-      showError(nameEl, 'Please enter your name.');
-      ok = false;
-    }
+                if (nameEl && nameEl.hasAttribute('required') && !name) {
+                    showError(nameEl, 'Please enter your name.');
+                    ok = false;
+                }
 
-    // require at least one contact method
-    if (!email && !phone) {
-      if (emailEl) showError(emailEl, 'Provide email or phone.');
-      if (phoneEl) showError(phoneEl, 'Provide phone or email.');
-      ok = false;
-    }
+                // require at least one contact method
+                if (!email && !phone) {
+                    if (emailEl) showError(emailEl, 'Provide email or phone.');
+                    if (phoneEl) showError(phoneEl, 'Provide phone or email.');
+                    ok = false;
+                }
 
-    if (email) {
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) { showError(emailEl, 'Enter a valid email.'); ok = false; }
-    }
+                if (email) {
+                    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                    if (!emailOk) { showError(emailEl, 'Enter a valid email.'); ok = false; }
+                }
 
-    if (phone) {
-      const digits = phone.replace(/\D/g, '');
-      if (digits.length < 10) { showError(phoneEl, 'Enter a valid phone (10+ digits).'); ok = false; }
-    }
+                if (phone) {
+                    const digits = phone.replace(/\D/g, '');
+                    if (digits.length < 10) { showError(phoneEl, 'Enter a valid phone (10+ digits).'); ok = false; }
+                }
 
-    if (nameEl)  nameEl.value  = name;
-    if (emailEl) emailEl.value = email;
-    if (phoneEl) phoneEl.value = phone;
+                if (nameEl) nameEl.value = name;
+                if (emailEl) emailEl.value = email;
+                if (phoneEl) phoneEl.value = phone;
 
-    return ok;
-  }
+                return ok;
+            }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!validate()) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!validate()) return;
 
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+                if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
-    emailjs
-      .sendForm(
-        'service_0l24vwc',
-        'template_zg6b0yq',   // make sure this template has vars: from_name, from_email, message, (optional) phone
-        form
-      )
-      .then(() => {
-        form.reset();
-        alert('Thanks! Your message was sent.');
-      })
-      .catch(err => {
-        alert('Oops… something went wrong:\n' + (err?.text || JSON.stringify(err)));
-      })
-      .finally(() => {
-        if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
-      });
-  });
-})();
+                // 1) Send to clinic/admin (your existing service & template)
+                emailjs
+                    .sendForm('service_jv0vco5', 'template_ia3w86r', form)
+                    .then(() => {
+                        // 2) Auto-reply to the visitor (second email)
+                        const email = emailEl ? emailEl.value.trim() : '';
+                        const name = nameEl ? (nameEl.value || '').trim() : '';
+
+                        if (!email) return; // no visitor email → skip
+
+                        // Make sure your auto-reply template's "To" is {{to_email}} (or change key to from_email)
+                        return emailjs.send(
+                            'service_jv0vco5',       // same service unless you created another one
+                            'template_vb2kmaj',      // your AUTO-REPLY template ID
+                            {
+                                to_email: email,       // or: from_email: email  (match your template variable)
+                                to_name: name || 'there',
+                                clinic_name: 'OneDay Dental',
+                                clinic_reply_to: 'onedaydentalva@gmail.com' // optional if your template uses it
+                            }
+                        );
+                    })
+                    .then(() => {
+                        form.reset();
+                        alert('Thanks! Your message was sent.');
+                    })
+                    .catch(err => {
+                        alert('Oops… something went wrong:\n' + (err?.text || JSON.stringify(err)));
+                    })
+                    .finally(() => {
+                        if (btn) { btn.disabled = false; btn.textContent = 'Reserve Your Spot'; }
+                    });
+            });
+
+        })();
 
         function updateImageHeightVariable() {
             const img = document.querySelector('.main-div img');
@@ -328,12 +346,12 @@
         });
 
         const aboutLink = document.querySelector('.nav2');
-if (aboutLink && aboutLink.getAttribute('href') === '#about') {
-  aboutLink.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector('.about-div')?.scrollIntoView({ behavior: 'smooth' });
-  });
-}
+        if (aboutLink && aboutLink.getAttribute('href') === '#about') {
+            aboutLink.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector('.about-div')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
 
         function updateAboutOverlayPadding() {
             const pic = document.querySelector('.about-picture img');

@@ -1602,7 +1602,7 @@ hr {
 .btn-outline{
   display:inline-block;
   padding:.65rem 1.2rem;
-  border:1px solid #EFD26B;
+  border:5px solid #EFD26B;
   border-radius:6px;
   text-decoration:none;
   color:#333;
@@ -1616,3 +1616,9 @@ hr {
 /* Smooth anchor jump + offset for sticky header */
 html { scroll-behavior: smooth; }
 #insurance, #membership { scroll-margin-top: 90px; } /* adjust to your fixed header height */
+
+.consent-row { margin-top: 0.75rem; }
+.consent-label { font-size: 0.95rem; color: #555; display: flex; gap: 0.5rem; align-items: flex-start; }
+.consent-label input { margin-top: 0.2rem; }
+.consent-note { display: block; margin-left: 1.5rem; color: #666; opacity: 0.9; }
+
