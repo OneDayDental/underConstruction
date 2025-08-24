@@ -1450,3 +1450,169 @@ hr {
   height: auto;
   display: block;
 }
+
+
+
+.membership-plan {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+.membership-plan h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  color: #222;
+}
+
+/* Tabs */
+.plan-tabs {
+  display: flex;
+  justify-content: center;
+  border: 1px solid #EFD26B;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.tab-link {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tab-link.active {
+  background: #EFD26B;
+  color: #333;
+}
+
+/* Plan Box */
+.plan-box {
+  border: 1px solid #EFD26B;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.plan-box h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.plan-box .price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.plan-box .price span {
+  font-size: 1rem;
+  font-weight: normal;
+  margin-left: 0.25rem;
+}
+
+.plan-box .age {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.plan-box hr {
+  border: 0;
+  border-top: 1px solid #EFD26B;
+  margin: 1.5rem 0;
+}
+
+.plan-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plan-box ul li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.plan-box ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #EFD26B;
+}
+
+/* hide all panels by default; show only the active one */
+.membership-plan .tab-content { display: none; }
+.membership-plan .tab-content.active { display: block; }
+
+
+/* Program Terms inside the plan box */
+.program-terms {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-left: 4px solid #EFD26B; /* matches your gold */
+  font-size: 0.95rem;
+  line-height: 1.4;
+  border-radius: 4px;
+}
+
+.program-terms h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+}
+
+.program-terms ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.program-terms li {
+  margin-bottom: 0.5rem;
+}
+
+/* Override check marks for Program Terms */
+.program-terms ul {
+  list-style: disc;      /* normal filled bullets */
+  padding-left: 1.5rem;  /* space for bullets */
+}
+
+.program-terms ul li {
+  position: static;      /* reset positioning */
+  padding-left: 0;       /* no extra left padding */
+}
+
+.program-terms ul li::before {
+  content: none;         /* remove the checkmark */
+}
+
+
+/* Buttons */
+.btn-outline{
+  display:inline-block;
+  padding:.65rem 1.2rem;
+  border:1px solid #EFD26B;
+  border-radius:6px;
+  text-decoration:none;
+  color:#333;
+  transition:background .25s ease, color .25s ease, border-color .25s ease;
+}
+.btn-outline:hover{ background:#EFD26B; color:#333; }
+
+/* Placement */
+.plan-cta, .ins-cta { margin-top: 1rem; text-align:center; }
+
+/* Smooth anchor jump + offset for sticky header */
+html { scroll-behavior: smooth; }
+#insurance, #membership { scroll-margin-top: 90px; } /* adjust to your fixed header height */
